@@ -19,17 +19,17 @@ A Django-based web application that uses machine learning to predict breast canc
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/cancer-prediction.git
+    https://github.com/rakshverma/Breast-Cancer-Prediction-.git
     ```
 
 2. Build Docker image:
     ```bash
-    docker build -t cancer-prediction .
+    docker build -t App .
     ```
 
 3. Run the container:
     ```bash
-    docker run -p 8000:8000 cancer-prediction
+    docker run -p 8000:8000 App
     ```
 
 ## Installation without Docker
