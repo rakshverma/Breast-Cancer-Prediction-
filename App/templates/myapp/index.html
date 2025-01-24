@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Sign Up | Log In</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Title Text */
+        .title-text {
+            display: flex;
+            width: 200%;
+            height: 50px;
+            position: relative;
+            background: #ff6b6b;
+        }
+
+        .title-text .login,
+        .title-text .signup {
+            width: 45%;
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            transition: all 0.6s ease;
+        }
+
+        .form-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Slide Controls */
+        .slide-controls {
+            position: relative;
+            display: flex;
+            height: 50px;
+            width: 100%;
+            background: #ff6b6b;
+            justify-content: space-between;
+        }
+
+        .slide-controls input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .slide-controls label {
+            position: relative;
+            z-index: 1;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.6s ease;
+        }
+
+        .slide-controls .login,
+        .slide-controls .signup {
+            width: 45%;
+            text-align: center;
+        }
+
+        .slide-controls .slider-tab {
+            position: absolute;
+            height: 100%;
+            width: 50%;
+            background: #ff3f3f;
+            border-radius: 5px;
+            transition: all 0.6s ease;
+        }
+
+        /* Form Inner */
+        .form-inner {
+            display: flex;
+            width: 200%;
+            transition: all 0.6s ease;
+        }
+
+        form {
+            width: 50%;
+            padding: 30px;
+            transition: all 0.6s ease;
+        }
+
+        .field {
+            height: 50px;
+            width: 100%;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .field input {
+            height: 100%;
+            width: 100%;
+            border: 1px solid #ccc;
+            padding-left: 15px;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .field input:focus {
+            border-color: #ff6b6b;
+        }
+
+        .field.btn {
+            margin-top: 20px;
+        }
+
+        .field.btn input {
+            background: #ff6b6b;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .field.btn input:hover {
+            background: #ff3f3f;
+        }
+
+        .pass-link {
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .pass-link a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 500px) {
+            .wrapper {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .form-container {
+                margin-top: 30px;
+            }
+
+            .title-text {
+                display: block;
+                text-align: center;
+                margin-bottom: 20px;
+                width: 400px;
+                margin-right: 100px;
+            }
+
+            .form-inner {
+                flex-direction: column;
+            }
+
+            form {
+                padding: 20px;
+            }
+        }
+
+        /* Alert */
+        .alert {
+            font-weight: bold;
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% if error %}
+        <div class="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        <div class="title-text">
+            <div class="title login">
+                Login
+            </div>
+            <div class="title signup">
+                Sign Up
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Sign Up</label>
+
+                <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+                <!-- Login Form -->
+                <form action="/login/" method="POST" class="login">
+                    {% csrf_token %}
+                    <div class="field">
+                        <input type="email" placeholder="Email Address" name="email" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="pass-link">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <div class="field btn">
+                        <input type="submit" value="Login">
+                    </div>
+                    <div class="signup-link">
+                        Don't have an account? <a href="#">Create a new one</a>
+                    </div>
+                </form>
+                <!-- Sign Up Form -->
+                <form action="/register/" method="POST" class="signup">
+                    {% csrf_token %}
+                    <div class="field">
+                        <input type="email" placeholder="Email Address" name="email" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Confirm Password" name="confirm_password" required>
+                    </div>
+                    <div class="field btn">
+                        <input type="submit" value="Sign Up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginText = document.querySelector(".title-text .login");
+        const loginForm = document.querySelector("form.login");
+        const loginBtn = document.querySelector("label.login");
+        const signupBtn = document.querySelector("label.signup");
+        const signupLink = document.querySelector("form .signup-link a");
+
+        signupBtn.onclick = () => {
+            loginForm.style.marginLeft = "-50%";
+            loginText.style.marginLeft = "-50%";
+        };
+
+        loginBtn.onclick = () => {
+            loginForm.style.marginLeft = "0%";
+            loginText.style.marginLeft = "0%";
+        };
+
+        signupLink.onclick = () => {
+            signupBtn.click();
+            return false;
+        };
+    </script>
+</body>
+
+</html>
